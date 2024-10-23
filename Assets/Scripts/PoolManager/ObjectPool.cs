@@ -27,13 +27,13 @@ public class ObjectPool : MonoBehaviour
         if (availableObjects.Count > 0)
         {
             GameObject obj = availableObjects.Dequeue();
-            obj.SetActive(true);
+            //obj.SetActive(true);
             return obj;
         }
         else
         {
             GameObject newObj = Instantiate(prefab, transform);
-            newObj.SetActive(true);
+            //newObj.SetActive(true);
             return newObj;
         }
     }

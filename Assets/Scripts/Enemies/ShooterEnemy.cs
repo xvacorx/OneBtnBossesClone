@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerShooting : MonoBehaviour
+public class ShooterEnemy : Enemy
 {
     public float fireRate = 1f;
     private float nextFireTime = 0f;

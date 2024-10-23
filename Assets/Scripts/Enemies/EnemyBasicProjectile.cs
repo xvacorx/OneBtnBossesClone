@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerProjectile : ReturnToPool
+public class EnemyBasicProjectile : MonoBehaviour
 {
     public Transform target;
     public float speed;
@@ -37,7 +37,7 @@ public class PlayerProjectile : ReturnToPool
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.CompareTag("Enemy"))
+        if (collision.gameObject.CompareTag("Player"))
         {
             if (collision.TryGetComponent<Enemy>(out Enemy enemy))
             {
