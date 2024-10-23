@@ -45,7 +45,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 56617547f426adc4eba194d5e2bb3518, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  radius: 5
+  radius: 3
   speed: 1
 --- !u!1 &3167322605170001428
 GameObject:
@@ -58,7 +58,7 @@ GameObject:
   - component: {fileID: 391598269910107313}
   - component: {fileID: 3739282443672694876}
   m_Layer: 0
-  m_Name: PlayerSprite
+  m_Name: Player_Sprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

@@ -3,18 +3,28 @@ using System.Collections.Generic;
 using UnityEngine;
 using static UnityEngine.GraphicsBuffer;
 
-public class PlayerProjectile : MonoBehaviour
+public class PlayerProjectile : ReturnToPool
 {
     public Transform target;
     public float speed;
+
     private void Start()
     {
-        Vector3 direction = target.position - transform.position;
-        transform.rotation = Quaternion.LookRotation(direction);
+        Vector2 direction = target.position - transform.position;
+        float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+        transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle - 90));
     }
+
     private void Update()
     {
-        float projectileSpeed = speed * Time.deltaTime;
-        transform.Translate(transform.forward * projectileSpeed * 2, Space.World);
+        transform.Translate(Vector2.up * speed * Time.deltaTime);
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.CompareTag("Enemy"))
+        {
+            gameObject.SetActive(false);
+        }
     }
 }
