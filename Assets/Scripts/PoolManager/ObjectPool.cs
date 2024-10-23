@@ -12,7 +12,7 @@ public class ObjectPool : MonoBehaviour
 
     private void Awake()
     {
-        poolName = prefab.name;
+        poolName = this.gameObject.name;
 
         for (int i = 0; i < initialSize; i++)
         {

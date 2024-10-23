@@ -1,18 +1,20 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using static UnityEngine.GraphicsBuffer;
 
 public class PlayerProjectile : ReturnToPool
 {
     public Transform target;
     public float speed;
+    [SerializeField] private float lifetime = 2f;
 
-    private void Start()
+    private void OnEnable()
     {
         Vector2 direction = target.position - transform.position;
         float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
         transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle - 90));
+
+        StartCoroutine(DeactivateAfterTime(lifetime));
     }
 
     private void Update()
@@ -26,5 +28,11 @@ public class PlayerProjectile : ReturnToPool
         {
             gameObject.SetActive(false);
         }
+    }
+
+    private IEnumerator DeactivateAfterTime(float time)
+    {
+        yield return new WaitForSeconds(time);
+        gameObject.SetActive(false);
     }
 }

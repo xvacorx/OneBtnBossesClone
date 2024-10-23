@@ -9,6 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2436124138162901129}
+  - component: {fileID: -512006602200778860}
   - component: {fileID: -564049719958199737}
   m_Layer: 0
   m_Name: Player
@@ -33,6 +34,20 @@ Transform:
   - {fileID: 391598269910107313}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &-512006602200778860
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2005628659732832378}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c7573dbde6b15f54a9c4f6171ac778df, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fireRate: 1
+  projectilePoolName: PlayerProjectilePool
 --- !u!114 &-564049719958199737
 MonoBehaviour:
   m_ObjectHideFlags: 0
