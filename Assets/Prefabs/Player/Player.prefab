@@ -48,7 +48,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c7573dbde6b15f54a9c4f6171ac778df, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fireRate: 1.5
+  fireRate: 1
   projectilePoolName: PlayerProjectilePool
   target: {fileID: 0}
 --- !u!114 &-564049719958199737
@@ -64,7 +64,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   radius: 3
-  speed: 1
+  speed: 2.5
 --- !u!58 &2539337155467753597
 CircleCollider2D:
   m_ObjectHideFlags: 0

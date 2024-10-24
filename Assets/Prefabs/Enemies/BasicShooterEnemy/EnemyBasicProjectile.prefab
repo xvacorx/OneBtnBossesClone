@@ -9,9 +9,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5960243876414832495}
-  - component: {fileID: 8404097710050279463}
   - component: {fileID: 7024964758107736897}
   - component: {fileID: 1133937527423189811}
+  - component: {fileID: 2589483967159672171}
   m_Layer: 0
   m_Name: EnemyBasicProjectile
   m_TagString: Untagged
@@ -35,21 +35,6 @@ Transform:
   - {fileID: 4026915733208541010}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &8404097710050279463
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4196383965251526054}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 26817e2b6a3c026449e9b320b5f3c588, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  target: {fileID: 0}
-  speed: 5
-  lifetime: 2
 --- !u!50 &7024964758107736897
 Rigidbody2D:
   serializedVersion: 4
@@ -126,6 +111,22 @@ PolygonCollider2D:
       - {x: 0, y: -0.5}
       - {x: 0.25, y: 0}
   m_UseDelaunayMesh: 0
+--- !u!114 &2589483967159672171
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4196383965251526054}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ae9602fce52877c4aa19b76917b8b1b8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  target: {fileID: 0}
+  speed: 5
+  objectiveTag: Player
+  lifetime: 5
 --- !u!1 &5359901810090724811
 GameObject:
   m_ObjectHideFlags: 0

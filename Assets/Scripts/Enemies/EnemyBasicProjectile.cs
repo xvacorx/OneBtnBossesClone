@@ -2,30 +2,23 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyBasicProjectile : MonoBehaviour
+public class EnemyBasicProjectile : ReturnToPool
 {
     public Transform target;
     public float speed;
     [SerializeField] private float lifetime = 2f;
 
-    private void Start()
-    {
-        if (target != null)
-        {
-            Vector2 direction = target.position - transform.position;
-            float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
-            transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle - 90));
-        }
-        StartCoroutine(DeactivateAfterTime(lifetime));
-    }
     private void OnEnable()
     {
-        if (target != null)
+        if (target == null)
         {
-            Vector2 direction = target.position - transform.position;
-            float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
-            transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle - 90));
+            gameObject.SetActive(false);
+            return;
         }
+
+        Vector2 direction = target.position - transform.position;
+        float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+        transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle - 90));
 
         StartCoroutine(DeactivateAfterTime(lifetime));
     }

@@ -49,6 +49,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   target: {fileID: 0}
   speed: 5
+  objectiveTag: Enemy
   lifetime: 5
 --- !u!60 &6414420236877076703
 PolygonCollider2D:

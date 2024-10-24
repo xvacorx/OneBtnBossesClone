@@ -20,17 +20,22 @@ public class PlayerShooting : MonoBehaviour
 
     void Shoot()
     {
+        if (target == null)
+        {
+            return;
+        }
+
         GameObject projectile = PoolManager.Instance.GetObject(projectilePoolName);
         if (projectile != null)
         {
-            PlayerProjectile bullet = projectile.GetComponent<PlayerProjectile>();
+            BasicProjectile bullet = projectile.GetComponent<BasicProjectile>();
             if (bullet != null)
             {
-                bullet.target = target;
-
+                bullet.enabled = false;
+                bullet.target = target; 
                 projectile.transform.position = transform.position;
+                bullet.enabled = true;
                 projectile.SetActive(true);
-
                 nextFireTime = Time.time + fireRate;
             }
         }
