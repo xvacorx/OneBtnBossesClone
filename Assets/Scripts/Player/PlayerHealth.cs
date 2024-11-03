@@ -33,6 +33,7 @@ public class PlayerHealth : MonoBehaviour
 
     private void GameOver()
     {
+        FindObjectOfType<GameTimer>().StopTimer();
         SceneManager.LoadScene("GameOver");
     }
 

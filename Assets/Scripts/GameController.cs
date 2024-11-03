@@ -17,6 +17,7 @@ public class GameController : MonoBehaviour
 
     public void Victory()
     {
+        FindObjectOfType<GameTimer>().StopTimer();
         SceneManager.LoadScene(2);
     }
 
