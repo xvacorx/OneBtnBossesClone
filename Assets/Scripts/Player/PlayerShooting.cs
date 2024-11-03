@@ -10,6 +10,8 @@ public class PlayerShooting : MonoBehaviour
 
     public Transform target;
 
+    public GameObject bulletGameObject;
+
     void Update()
     {
         if (Time.time >= nextFireTime)
@@ -24,20 +26,29 @@ public class PlayerShooting : MonoBehaviour
         {
             return;
         }
-
-        GameObject projectile = PoolManager.Instance.GetObject(projectilePoolName);
-        if (projectile != null)
+        GameObject bulletGameObjectInstantiated = Instantiate(bulletGameObject, transform.position, Quaternion.identity);
+        BasicProjectile bullet = bulletGameObjectInstantiated.GetComponent<BasicProjectile>();
+        if (bullet != null)
         {
-            BasicProjectile bullet = projectile.GetComponent<BasicProjectile>();
-            if (bullet != null)
-            {
-                bullet.enabled = false;
-                bullet.target = target; 
-                projectile.transform.position = transform.position;
-                bullet.enabled = true;
-                projectile.SetActive(true);
-                nextFireTime = Time.time + fireRate;
-            }
+            bullet.target = target;
+            bullet.transform.position = transform.position;
+            bullet.enabled = true;
+            bullet.gameObject.SetActive(true);
+            nextFireTime = Time.time + fireRate;
         }
+        //GameObject projectile = PoolManager.Instance.GetObject(projectilePoolName);
+        //if (projectile != null)
+        //{
+        //    BasicProjectile bullet = projectile.GetComponent<BasicProjectile>();
+        //    if (bullet != null)
+        //    {
+        //        bullet.enabled = false;
+        //        bullet.target = target; 
+        //        projectile.transform.position = transform.position;
+        //        bullet.enabled = true;
+        //        projectile.SetActive(true);
+        //        nextFireTime = Time.time + fireRate;
+        //    }
+        //}
     }
 }

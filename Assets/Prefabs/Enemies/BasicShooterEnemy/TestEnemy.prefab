@@ -181,7 +181,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bb61ed6d60e9e2c418b3d5263178e5ae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  life: 100
+  life: 10
   fireRate: 1
   projectilePoolName: EnemyBasicProjectilePool
   target: {fileID: 0}
+  bulletGameObject: {fileID: 4196383965251526054, guid: 02590b3f6755c9b40b2c72bdb7529d36, type: 3}

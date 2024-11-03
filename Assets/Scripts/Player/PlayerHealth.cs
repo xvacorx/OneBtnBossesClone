@@ -20,7 +20,6 @@ public class PlayerHealth : MonoBehaviour
         {
             currentHealth = 0;
             FindObjectOfType<GameController>().Defeat();
-
         }
     }
 
