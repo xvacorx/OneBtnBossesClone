@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.IO.LowLevel.Unsafe;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public abstract class Enemy : MonoBehaviour
 {
@@ -17,6 +18,7 @@ public abstract class Enemy : MonoBehaviour
     }
     protected virtual void Death()
     {
+        SceneManager.LoadScene(2);
         Debug.Log("Enemy Ded");
     }
 }

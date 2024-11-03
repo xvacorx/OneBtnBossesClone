@@ -7,12 +7,10 @@ public class PlayerHealth : MonoBehaviour
 {
     public int maxHealth = 3;
     private int currentHealth;
-    public GameObject gameOverPanel;
 
     void Start()
     {
         currentHealth = maxHealth;
-        gameOverPanel.SetActive(false);
     }
 
     public void TakeDamage(int damageAmount)
@@ -35,8 +33,7 @@ public class PlayerHealth : MonoBehaviour
 
     private void GameOver()
     {
-        gameOverPanel.SetActive(true);
-        Time.timeScale = 0f;
+        SceneManager.LoadScene("GameOver");
     }
 
 }
