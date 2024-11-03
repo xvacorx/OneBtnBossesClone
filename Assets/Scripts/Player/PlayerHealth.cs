@@ -18,7 +18,9 @@ public class PlayerHealth : MonoBehaviour
         currentHealth -= damageAmount;
         if (currentHealth <= 0)
         {
-            GameOver();
+            currentHealth = 0;
+            FindObjectOfType<GameController>().Defeat();
+
         }
     }
 
@@ -30,11 +32,4 @@ public class PlayerHealth : MonoBehaviour
             collision.gameObject.SetActive(false);
         }
     }
-
-    private void GameOver()
-    {
-        FindObjectOfType<GameTimer>().StopTimer();
-        SceneManager.LoadScene("GameOver");
-    }
-
 }

@@ -36,4 +36,9 @@ public class GameTimer : MonoBehaviour
         isCounting = true;
         UpdateTimerDisplay();
     }
+
+    public float GetElapsedTime()
+    {
+        return elapsedTime;
+    }
 }

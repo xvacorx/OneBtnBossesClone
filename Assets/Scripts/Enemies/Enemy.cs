@@ -18,7 +18,12 @@ public abstract class Enemy : MonoBehaviour
     }
     protected virtual void Death()
     {
-        SceneManager.LoadScene(2);
+        FindObjectOfType<GameTimer>().StopTimer();
+        GameController gameController = FindObjectOfType<GameController>();
+        if (gameController != null)
+        {
+            gameController.Victory();
+        }
         Debug.Log("Enemy Ded");
     }
 }
