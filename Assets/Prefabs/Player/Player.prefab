@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: -564049719958199737}
   - component: {fileID: 2792081079142807573}
   - component: {fileID: 2539337155467753597}
+  - component: {fileID: 5527667043126498434}
   - component: {fileID: 6854177755724586113}
   m_Layer: 0
   m_Name: Player
@@ -115,6 +116,25 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.5
+--- !u!114 &5527667043126498434
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2005628659732832378}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d38b18898d54a944f811658b05a3905d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speedBoost: 2
+  energy: 100
+  energyDepletionRate: 20
+  rechargeRate: 10
+  rechargeDelay: 2
+  energyBar: {fileID: 0}
+  energyText: {fileID: 0}
 --- !u!50 &6854177755724586113
 Rigidbody2D:
   serializedVersion: 4
