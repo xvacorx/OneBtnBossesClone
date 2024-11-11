@@ -8,7 +8,7 @@ public class PlayerMovement : MonoBehaviour
     public float speed = 1f;
     private float angle = 0f;
     private bool clockwise = true;
-
+    public bool canChangeDirection = true;
     private Vector3 center;
 
     void Start()
@@ -18,7 +18,7 @@ public class PlayerMovement : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.Space) && canChangeDirection)
         {
             clockwise = !clockwise;
         }

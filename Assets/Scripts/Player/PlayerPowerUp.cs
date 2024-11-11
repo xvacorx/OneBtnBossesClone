@@ -60,6 +60,7 @@ public class PlayerPowerUp : MonoBehaviour
         isPowerUpActive = true;
         canRecharge = false;
         playerMovement.speed *= speedBoost;
+        playerMovement.canChangeDirection = false;
         SetInvulnerability(true);
         Invoke(nameof(AllowRecharge), rechargeDelay);
     }
@@ -68,6 +69,7 @@ public class PlayerPowerUp : MonoBehaviour
     {
         isPowerUpActive = false;
         playerMovement.speed /= speedBoost;
+        playerMovement.canChangeDirection = true;
         SetInvulnerability(false);
     }
 
@@ -107,10 +109,12 @@ public class PlayerPowerUp : MonoBehaviour
             energyText.text = $"Energía: {energy:F0}%";
         }
     }
+
     public bool IsInvulnerable()
     {
         return isPowerUpActive;
     }
+
     private void SetInvulnerability(bool state)
     {
         playerCollider.enabled = !state;
