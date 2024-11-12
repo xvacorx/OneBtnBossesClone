@@ -96,6 +96,7 @@ GameObject:
   - component: {fileID: 3887929213607852506}
   - component: {fileID: 5757595535007776903}
   - component: {fileID: 1673473738847564362}
+  - component: {fileID: -8833006112803424449}
   m_Layer: 0
   m_Name: TestEnemy
   m_TagString: Enemy
@@ -200,6 +201,26 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   obstaclePrefab: {fileID: 1449235575641408499, guid: 117940ef5d8a8ec428db60c4e94bb0ba, type: 3}
-  spawnRadius: 3
+  spawnInterval: 5
+  colliderActivationDelay: 0.5
+  lifeTime: 1
+  isCone: 0
+  spawnAngle: 0
+--- !u!114 &-8833006112803424449
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5504201772983187473}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 30c5e63907b575f43a5c32b55b2c942d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  obstaclePrefab: {fileID: 1344085522836766517, guid: b97c2e474c82043498868ba83b3f893b, type: 3}
   spawnInterval: 3
   colliderActivationDelay: 0.5
+  lifeTime: 1
+  isCone: 1
+  spawnAngle: 163

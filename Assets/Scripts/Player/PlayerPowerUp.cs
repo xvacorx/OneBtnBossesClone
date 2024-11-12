@@ -38,7 +38,7 @@ public class PlayerPowerUp : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space) && energy > 0 && !isPowerUpActive)
+        if (Input.GetKeyDown(KeyCode.Space) && energy >= 100 && !isPowerUpActive)
         {
             ActivatePowerUp();
         }

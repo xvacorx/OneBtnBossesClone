@@ -11,6 +11,8 @@ public class PlayerMovement : MonoBehaviour
     public bool canChangeDirection = true;
     private Vector3 center;
 
+    private bool movementEnabled = true;
+
     void Start()
     {
         center = Vector3.zero;
@@ -21,8 +23,9 @@ public class PlayerMovement : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Space) && canChangeDirection)
         {
             clockwise = !clockwise;
+            movementEnabled = true;
         }
-        Movement();
+        if (movementEnabled) Movement();
     }
     private void Movement()
     {
@@ -33,6 +36,10 @@ public class PlayerMovement : MonoBehaviour
         float y = Mathf.Sin(angle) * radius;
 
         transform.position = new Vector3(x + center.x, y + center.y, 0);
+    }
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("Obstacle")) movementEnabled = false;
     }
     void OnDrawGizmos()
     {
