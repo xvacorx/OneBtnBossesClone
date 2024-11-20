@@ -2398,17 +2398,9 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1673473738847564362, guid: 6da0f279e3434ea4cabc0ef0de6fb9d5, type: 3}
-      propertyPath: lifeTime
-      value: 3
-      objectReference: {fileID: 0}
     - target: {fileID: 5504201772983187473, guid: 6da0f279e3434ea4cabc0ef0de6fb9d5, type: 3}
       propertyPath: m_Name
       value: TestEnemy
-      objectReference: {fileID: 0}
-    - target: {fileID: 5757595535007776903, guid: 6da0f279e3434ea4cabc0ef0de6fb9d5, type: 3}
-      propertyPath: life
-      value: 1000
       objectReference: {fileID: 0}
     - target: {fileID: 5757595535007776903, guid: 6da0f279e3434ea4cabc0ef0de6fb9d5, type: 3}
       propertyPath: target

@@ -19,18 +19,19 @@ public class PlayerHealth : MonoBehaviour
     {
         if (playerPowerUp != null && playerPowerUp.IsInvulnerable())
         {
-            Debug.Log("El jugador es invulnerable, no recibe daño.");
+            Debug.Log("El jugador es invulnerable, no recibe daï¿½o.");
             return;
         }
-
-        currentHealth -= damageAmount;
-        if (currentHealth <= 0)
+        else
         {
-            currentHealth = 0;
-            FindObjectOfType<GameController>().Defeat();
+            currentHealth -= damageAmount;
+            if (currentHealth <= 0)
+            {
+                currentHealth = 0;
+                FindObjectOfType<GameController>().Defeat();
+            }
         }
     }
-
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag("EnemyProjectile"))

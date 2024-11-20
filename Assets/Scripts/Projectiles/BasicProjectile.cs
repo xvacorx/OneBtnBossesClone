@@ -37,15 +37,13 @@ public class BasicProjectile : ReturnToPool
             {
                 enemy.TakeDamage(1);
             }
-            //gameObject.SetActive(false);
-            Destroy(gameObject);
+            gameObject.SetActive(false);
         }
     }
 
     private IEnumerator DeactivateAfterTime(float time)
     {
         yield return new WaitForSeconds(time);
-        //gameObject.SetActive(false);
-        Destroy(gameObject);
+        gameObject.SetActive(false);
     }
 }
