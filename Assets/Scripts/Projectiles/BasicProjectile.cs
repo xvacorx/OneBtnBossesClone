@@ -29,18 +29,6 @@ public class BasicProjectile : ReturnToPool
         transform.Translate(Vector2.up * speed * Time.deltaTime);
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if (collision.gameObject.CompareTag(objectiveTag))
-        {
-            if (collision.TryGetComponent<Enemy>(out Enemy enemy))
-            {
-                enemy.TakeDamage(1);
-            }
-            gameObject.SetActive(false);
-        }
-    }
-
     private IEnumerator DeactivateAfterTime(float time)
     {
         yield return new WaitForSeconds(time);

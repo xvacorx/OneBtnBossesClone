@@ -1,26 +1,69 @@
 using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class GameController : MonoBehaviour
 {
-    public GameObject victoryPanel;
-    public GameObject defeatPanel;
-    public TMP_Text currentTimeText;
-    public TMP_Text bestTimeText;
+    public static GameController Instance { get; private set; }
+
+    [SerializeField] private string victoryPanelName;
+    [SerializeField] private string defeatPanelName;
+    [SerializeField] private string currentTimeTextName;
+    [SerializeField] private string bestTimeTextName;
+
+    private GameObject victoryPanel;
+    private GameObject defeatPanel;
+    private TMP_Text currentTimeText;
+    private TMP_Text bestTimeText;
+    private string currentSceneName;
+
+    private void Awake()
+    {
+        if (Instance != null && Instance != this)
+        {
+            Destroy(gameObject);
+            return;
+        }
+        Instance = this;
+        DontDestroyOnLoad(gameObject);
+    }
+
+    private void OnEnable()
+    {
+        SceneManager.sceneLoaded += OnSceneLoaded;
+    }
+
+    private void OnDisable()
+    {
+        SceneManager.sceneLoaded -= OnSceneLoaded;
+    }
 
     private void Start()
     {
-        if (victoryPanel != null)
-            victoryPanel.SetActive(false);
+        currentSceneName = SceneManager.GetActiveScene().name;
+        InitializeUIElements();
+    }
 
-        if (defeatPanel != null)
-            defeatPanel.SetActive(false);
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        currentSceneName = scene.name;
+        InitializeUIElements();
+    }
 
-        if (bestTimeText != null)
-            bestTimeText.gameObject.SetActive(false);
+    private void InitializeUIElements()
+    {
+        victoryPanel = GameObject.Find(victoryPanelName);
+        defeatPanel = GameObject.Find(defeatPanelName);
+        GameObject currentTime = GameObject.Find(currentTimeTextName);
+        GameObject bestTime = GameObject.Find(bestTimeTextName);
+
+        if (currentTime != null) currentTimeText = currentTime.GetComponent<TMP_Text>();
+        if (bestTime != null) bestTimeText = bestTime.GetComponent<TMP_Text>();
+
+        if (victoryPanel != null) victoryPanel.SetActive(false);
+        if (defeatPanel != null) defeatPanel.SetActive(false);
+        if (bestTimeText != null) bestTimeText.gameObject.SetActive(false);
     }
 
     public void Victory()
@@ -29,22 +72,27 @@ public class GameController : MonoBehaviour
         {
             victoryPanel.SetActive(true);
             Time.timeScale = 0f;
+
             GameTimer gameTimer = FindObjectOfType<GameTimer>();
             gameTimer.StopTimer();
             float finalTime = gameTimer.GetElapsedTime();
-            currentTimeText.text = $"Tiempo: {finalTime:F2} segundos";
 
-            float bestTime = PlayerPrefs.GetFloat("BestTime", Mathf.Infinity);
+            currentTimeText.text = $"Time: {finalTime:F2} s.";
+
+            string bestTimeKey = $"{currentSceneName}_BestTime";
+            float bestTime = PlayerPrefs.GetFloat(bestTimeKey, Mathf.Infinity);
+
             if (finalTime < bestTime)
             {
                 bestTime = finalTime;
-                PlayerPrefs.SetFloat("BestTime", bestTime);
-                bestTimeText.text = "¡Nuevo Mejor Tiempo!";
+                PlayerPrefs.SetFloat(bestTimeKey, bestTime);
+                bestTimeText.text = "New best time!";
             }
             else
             {
-                bestTimeText.text = $"Mejor Tiempo: {bestTime:F2} segundos";
+                bestTimeText.text = $"Best time: {bestTime:F2} s.";
             }
+
             bestTimeText.gameObject.SetActive(true);
         }
     }
@@ -55,19 +103,19 @@ public class GameController : MonoBehaviour
         {
             defeatPanel.SetActive(true);
             Time.timeScale = 0f;
+
             GameTimer gameTimer = FindObjectOfType<GameTimer>();
             gameTimer.StopTimer();
-            bestTimeText.gameObject.SetActive(true);
+
+            if (bestTimeText != null) bestTimeText.gameObject.SetActive(true);
         }
     }
 
     public void RestartGame()
     {
         Time.timeScale = 1f;
-        if (bestTimeText != null)
-        {
-            bestTimeText.gameObject.SetActive(false);
-        }
+        if (bestTimeText != null) bestTimeText.gameObject.SetActive(false);
+
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 }

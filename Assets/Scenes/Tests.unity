@@ -134,7 +134,7 @@ GameObject:
   - component: {fileID: 121362558}
   - component: {fileID: 121362557}
   m_Layer: 5
-  m_Name: Panel
+  m_Name: WinPanel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -452,10 +452,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e7d4fe9d3ca5a244f833e01678537c92, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  victoryPanel: {fileID: 121362555}
-  defeatPanel: {fileID: 393422759}
-  currentTimeText: {fileID: 1904373752}
-  bestTimeText: {fileID: 473212103}
+  victoryPanelName: 
+  defeatPanelName: 
+  currentTimeTextName: 
+  bestTimeTextName: 
 --- !u!4 &199284670
 Transform:
   m_ObjectHideFlags: 0
@@ -617,7 +617,7 @@ GameObject:
   - component: {fileID: 393422761}
   - component: {fileID: 393422760}
   m_Layer: 5
-  m_Name: Panel
+  m_Name: LosePanel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -694,7 +694,7 @@ GameObject:
   - component: {fileID: 473212104}
   - component: {fileID: 473212103}
   m_Layer: 5
-  m_Name: Mejor Tiempo
+  m_Name: BestTime
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1945,6 +1945,63 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1498547169}
   m_CullTransparentMesh: 1
+--- !u!1001 &1503575888
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 1256201062212164566, guid: 76ba4a26dee51cf4d98fcd0dcaa62fc8, type: 3}
+      propertyPath: m_Name
+      value: GameManager
+      objectReference: {fileID: 0}
+    - target: {fileID: 7604798242138733691, guid: 76ba4a26dee51cf4d98fcd0dcaa62fc8, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -2.8041627
+      objectReference: {fileID: 0}
+    - target: {fileID: 7604798242138733691, guid: 76ba4a26dee51cf4d98fcd0dcaa62fc8, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -3.0617251
+      objectReference: {fileID: 0}
+    - target: {fileID: 7604798242138733691, guid: 76ba4a26dee51cf4d98fcd0dcaa62fc8, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.85846835
+      objectReference: {fileID: 0}
+    - target: {fileID: 7604798242138733691, guid: 76ba4a26dee51cf4d98fcd0dcaa62fc8, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7604798242138733691, guid: 76ba4a26dee51cf4d98fcd0dcaa62fc8, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7604798242138733691, guid: 76ba4a26dee51cf4d98fcd0dcaa62fc8, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7604798242138733691, guid: 76ba4a26dee51cf4d98fcd0dcaa62fc8, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7604798242138733691, guid: 76ba4a26dee51cf4d98fcd0dcaa62fc8, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7604798242138733691, guid: 76ba4a26dee51cf4d98fcd0dcaa62fc8, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7604798242138733691, guid: 76ba4a26dee51cf4d98fcd0dcaa62fc8, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 76ba4a26dee51cf4d98fcd0dcaa62fc8, type: 3}
 --- !u!1 &1504780132
 GameObject:
   m_ObjectHideFlags: 0
@@ -2068,7 +2125,7 @@ GameObject:
   - component: {fileID: 1904373753}
   - component: {fileID: 1904373752}
   m_Layer: 5
-  m_Name: Tiempo
+  m_Name: CurrentTime
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2527,6 +2584,7 @@ SceneRoots:
   - {fileID: 519420032}
   - {fileID: 619394802}
   - {fileID: 199284670}
+  - {fileID: 1503575888}
   - {fileID: 7593596652752903618}
   - {fileID: 5386524664205217146}
   - {fileID: 5387830115980492236}

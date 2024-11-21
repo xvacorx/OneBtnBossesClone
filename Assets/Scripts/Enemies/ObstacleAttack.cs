@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class ObstacleAttack : MonoBehaviour
@@ -12,49 +11,57 @@ public class ObstacleAttack : MonoBehaviour
     private float spawnRadius;
 
     [Header("Cone Settings")]
+    [SerializeField] private string conePoolName = "ProjectilePool";
     [SerializeField] private float coneSpawnInterval = 3f;
     [SerializeField] private float spawnAngle;
-    [SerializeField] private string conePoolName = "ProjectilePool";
     [SerializeField] private float coneLifeTime = 1f;
 
     private GameObject player;
     private PlayerMovement movement;
+
     private void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player");
+
         movement = player.GetComponent<PlayerMovement>();
+
         spawnRadius = movement.radius;
+
         InvokeRepeating(nameof(SpawnObstacle), obstacleSpawnInterval, obstacleSpawnInterval);
         InvokeRepeating(nameof(SpawnCone), coneSpawnInterval, coneSpawnInterval);
-
     }
 
     private void SpawnObstacle()
     {
         Vector2 spawnPosition = GetRandomPosition();
         GameObject obstacle = PoolManager.Instance.GetObject(obstaclePoolName);
+
         obstacle.transform.position = spawnPosition;
         obstacle.SetActive(true);
-        StartCoroutine(ReturnToPool(obstacle, obstacleLifeTime));
+
         Collider2D obstacleCollider = obstacle.GetComponent<Collider2D>();
         if (obstacleCollider != null)
         {
             obstacleCollider.enabled = false;
             StartCoroutine(ActivateObstacleCollider(obstacleCollider));
         }
-    }
-    private void SpawnCone()
 
+        StartCoroutine(ReturnToPool(obstacle, obstacleLifeTime));
+    }
+
+    private void SpawnCone()
     {
         Vector2 spawnPosition = GetRandomPosition();
         Quaternion predefinedRotation = Quaternion.Euler(0, 0, spawnAngle);
-        GameObject obstacle = PoolManager.Instance.GetObject(conePoolName);
-        obstacle.transform.position = spawnPosition;
-        obstacle.transform.rotation = predefinedRotation;
-        obstacle.SetActive(true);
-        StartCoroutine(ReturnToPool(obstacle, coneLifeTime));
-    }
 
+        GameObject cone = PoolManager.Instance.GetObject(conePoolName);
+
+        cone.transform.position = spawnPosition;
+        cone.transform.rotation = predefinedRotation;
+        cone.SetActive(true);
+
+        StartCoroutine(ReturnToPool(cone, coneLifeTime));
+    }
 
     private Vector2 GetRandomPosition()
     {
@@ -79,12 +86,13 @@ public class ObstacleAttack : MonoBehaviour
         yield return new WaitForSeconds(colliderActivationDelay);
         obstacleCollider.enabled = true;
     }
+
     private IEnumerator ReturnToPool(GameObject obstacle, float lifeTime)
     {
         yield return new WaitForSeconds(lifeTime);
-        if (obstacle.activeSelf)
-        {
-            obstacle.SetActive(false);
-        }
+
+        ObjectPool objectPool = obstacle.GetComponentInParent<ObjectPool>();
+        if (objectPool != null) objectPool.ReturnObject(obstacle);
+        else obstacle.SetActive(false);
     }
 }

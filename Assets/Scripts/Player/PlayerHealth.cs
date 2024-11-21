@@ -19,7 +19,7 @@ public class PlayerHealth : MonoBehaviour
     {
         if (playerPowerUp != null && playerPowerUp.IsInvulnerable())
         {
-            Debug.Log("El jugador es invulnerable, no recibe da�o.");
+            Debug.Log("El jugador es invulnerable, no recibe daño.");
             return;
         }
         else

@@ -18,12 +18,19 @@ public abstract class Enemy : MonoBehaviour
     }
     protected virtual void Death()
     {
-        FindObjectOfType<GameTimer>().StopTimer();
-        GameController gameController = FindObjectOfType<GameController>();
+        GameController gameController = GameController.Instance;
         if (gameController != null)
         {
             gameController.Victory();
         }
         Debug.Log("Enemy Ded");
+    }
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.CompareTag("PlayerProjectile"))
+        {
+            TakeDamage(1);
+            collision.gameObject.SetActive(false);
+        }
     }
 }
