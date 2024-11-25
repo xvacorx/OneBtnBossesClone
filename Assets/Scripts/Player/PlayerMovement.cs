@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -8,25 +9,40 @@ public class PlayerMovement : MonoBehaviour
     public float speed = 1f;
     private float angle = 0f;
     private bool clockwise = true;
-    public bool canChangeDirection = true;
     private Vector3 center;
-
     private bool movementEnabled = true;
 
-    void Start()
+    public bool canChangeDirection = true;
+
+    private PlayerControls inputActions;
+
+    private void Awake()
+    {
+        inputActions = new PlayerControls();
+    }
+
+    private void OnEnable()
+    {
+        inputActions.Enable();
+        inputActions.Player.Move.performed += OnChangeDirection;
+    }
+
+    private void OnDisable()
+    {
+        inputActions.Player.Move.performed -= OnChangeDirection;
+        inputActions.Disable();
+    }
+
+    private void Start()
     {
         center = Vector3.zero;
     }
 
-    void Update()
+    private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space) && canChangeDirection)
-        {
-            clockwise = !clockwise;
-            movementEnabled = true;
-        }
         if (movementEnabled) Movement();
     }
+
     private void Movement()
     {
         float direction = clockwise ? -1f : 1f;
@@ -37,11 +53,24 @@ public class PlayerMovement : MonoBehaviour
 
         transform.position = new Vector3(x + center.x, y + center.y, 0);
     }
+
+    private void OnChangeDirection(InputAction.CallbackContext context)
+    {
+        if (movementEnabled && canChangeDirection)
+        {
+            clockwise = !clockwise;
+        }
+    }
+
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.CompareTag("Obstacle")) movementEnabled = false;
+        if (collision.gameObject.CompareTag("Obstacle"))
+        {
+            movementEnabled = false;
+        }
     }
-    void OnDrawGizmos()
+
+    private void OnDrawGizmos()
     {
         if (Application.isPlaying)
         {

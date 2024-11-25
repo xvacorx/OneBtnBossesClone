@@ -1,7 +1,6 @@
-using System.Collections;
-using System.Collections.Generic;
-using TMPro;
 using UnityEngine;
+using UnityEngine.InputSystem;
+using TMPro;
 using UnityEngine.UI;
 
 public class PlayerPowerUp : MonoBehaviour
@@ -22,6 +21,25 @@ public class PlayerPowerUp : MonoBehaviour
     private bool canRecharge = true;
     private Collider2D playerCollider;
 
+    private PlayerControls inputActions;
+
+    private void Awake()
+    {
+        inputActions = new PlayerControls();
+    }
+
+    private void OnEnable()
+    {
+        inputActions.Enable();
+        inputActions.Player.SpeedBoost.performed += OnActivatePowerUp;
+    }
+
+    private void OnDisable()
+    {
+        inputActions.Player.SpeedBoost.performed -= OnActivatePowerUp;
+        inputActions.Disable();
+    }
+
     private void Start()
     {
         playerMovement = GetComponent<PlayerMovement>();
@@ -38,11 +56,6 @@ public class PlayerPowerUp : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space) && energy >= 100 && !isPowerUpActive)
-        {
-            ActivatePowerUp();
-        }
-
         if (isPowerUpActive)
         {
             ConsumeEnergy();
@@ -55,12 +68,18 @@ public class PlayerPowerUp : MonoBehaviour
         UpdateEnergyUI();
     }
 
+    private void OnActivatePowerUp(InputAction.CallbackContext context)
+    {
+        if (energy >= 100 && !isPowerUpActive)
+        {
+            ActivatePowerUp();
+        }
+    }
     private void ActivatePowerUp()
     {
         isPowerUpActive = true;
         canRecharge = false;
         playerMovement.speed *= speedBoost;
-        playerMovement.canChangeDirection = false;
         SetInvulnerability(true);
         Invoke(nameof(AllowRecharge), rechargeDelay);
     }
@@ -69,10 +88,8 @@ public class PlayerPowerUp : MonoBehaviour
     {
         isPowerUpActive = false;
         playerMovement.speed /= speedBoost;
-        playerMovement.canChangeDirection = true;
         SetInvulnerability(false);
     }
-
     private void ConsumeEnergy()
     {
         energy -= energyDepletionRate * Time.deltaTime;
