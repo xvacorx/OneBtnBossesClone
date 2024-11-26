@@ -4,27 +4,24 @@ using UnityEngine;
 public class ObstacleAttack : MonoBehaviour
 {
     [Header("Obstacle Settings")]
-    [SerializeField] private string obstaclePoolName = "ProjectilePool";
+    [SerializeField] private string obstaclePoolName = "ObstaclePool";
     [SerializeField] private float obstacleSpawnInterval = 3f;
     [SerializeField] private float colliderActivationDelay = 0.5f;
     [SerializeField] private float obstacleLifeTime = 1f;
-    private float spawnRadius;
 
     [Header("Cone Settings")]
-    [SerializeField] private string conePoolName = "ProjectilePool";
+    [SerializeField] private string conePoolName = "ConePool";
     [SerializeField] private float coneSpawnInterval = 3f;
     [SerializeField] private float spawnAngle;
     [SerializeField] private float coneLifeTime = 1f;
 
     private GameObject player;
-    private PlayerMovement movement;
+    private float spawnRadius;
 
     private void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player");
-
-        movement = player.GetComponent<PlayerMovement>();
-
+        PlayerMovement movement = player.GetComponent<PlayerMovement>();
         spawnRadius = movement.radius;
 
         InvokeRepeating(nameof(SpawnObstacle), obstacleSpawnInterval, obstacleSpawnInterval);
@@ -34,33 +31,32 @@ public class ObstacleAttack : MonoBehaviour
     private void SpawnObstacle()
     {
         Vector2 spawnPosition = GetRandomPosition();
-        GameObject obstacle = PoolManager.Instance.GetObject(obstaclePoolName);
+        GameObject obstacle = GameObjectFactory.CreateObject(obstaclePoolName, spawnPosition);
 
-        obstacle.transform.position = spawnPosition;
-        obstacle.SetActive(true);
-
-        Collider2D obstacleCollider = obstacle.GetComponent<Collider2D>();
-        if (obstacleCollider != null)
+        if (obstacle != null)
         {
-            obstacleCollider.enabled = false;
-            StartCoroutine(ActivateObstacleCollider(obstacleCollider));
-        }
+            Collider2D obstacleCollider = obstacle.GetComponent<Collider2D>();
+            if (obstacleCollider != null)
+            {
+                obstacleCollider.enabled = false;
+                StartCoroutine(ActivateObstacleCollider(obstacleCollider));
+            }
 
-        StartCoroutine(ReturnToPool(obstacle, obstacleLifeTime));
+            StartCoroutine(ReturnToPool(obstacle, obstacleLifeTime));
+        }
     }
 
     private void SpawnCone()
     {
         Vector2 spawnPosition = GetRandomPosition();
-        Quaternion predefinedRotation = Quaternion.Euler(0, 0, spawnAngle);
+        Quaternion spawnRotation = Quaternion.Euler(0, 0, spawnAngle);
 
-        GameObject cone = PoolManager.Instance.GetObject(conePoolName);
+        GameObject cone = GameObjectFactory.CreateObject(conePoolName, spawnPosition, spawnRotation);
 
-        cone.transform.position = spawnPosition;
-        cone.transform.rotation = predefinedRotation;
-        cone.SetActive(true);
-
-        StartCoroutine(ReturnToPool(cone, coneLifeTime));
+        if (cone != null)
+        {
+            StartCoroutine(ReturnToPool(cone, coneLifeTime));
+        }
     }
 
     private Vector2 GetRandomPosition()
@@ -81,18 +77,24 @@ public class ObstacleAttack : MonoBehaviour
         return randomPosition;
     }
 
-    private IEnumerator ActivateObstacleCollider(Collider2D obstacleCollider)
+    private IEnumerator ActivateObstacleCollider(Collider2D collider)
     {
         yield return new WaitForSeconds(colliderActivationDelay);
-        obstacleCollider.enabled = true;
+        collider.enabled = true;
     }
 
-    private IEnumerator ReturnToPool(GameObject obstacle, float lifeTime)
+    private IEnumerator ReturnToPool(GameObject obj, float lifeTime)
     {
         yield return new WaitForSeconds(lifeTime);
 
-        ObjectPool objectPool = obstacle.GetComponentInParent<ObjectPool>();
-        if (objectPool != null) objectPool.ReturnObject(obstacle);
-        else obstacle.SetActive(false);
+        ObjectPool pool = obj.GetComponentInParent<ObjectPool>();
+        if (pool != null)
+        {
+            pool.ReturnObject(obj);
+        }
+        else
+        {
+            obj.SetActive(false);
+        }
     }
 }
