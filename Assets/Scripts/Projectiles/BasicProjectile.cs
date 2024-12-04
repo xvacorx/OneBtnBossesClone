@@ -6,7 +6,6 @@ public class BasicProjectile : ReturnToPool
 {
     public Transform target;
     public float speed;
-    [SerializeField] private string objectiveTag;
     [SerializeField] private float lifetime = 2f;
 
     private void OnEnable()

@@ -10,8 +10,6 @@ public class PlayerShooting : MonoBehaviour
 
     public Transform target;
 
-    public GameObject bulletGameObject;
-
     void Update()
     {
         if (Time.time >= nextFireTime)
@@ -34,7 +32,7 @@ public class PlayerShooting : MonoBehaviour
             if (bullet != null)
             {
                 bullet.enabled = false;
-                bullet.target = target; 
+                bullet.target = target;
                 projectile.transform.position = transform.position;
                 bullet.enabled = true;
                 projectile.SetActive(true);

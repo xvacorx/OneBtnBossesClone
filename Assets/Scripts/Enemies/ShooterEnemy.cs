@@ -24,7 +24,7 @@ public class ShooterEnemy : Enemy
         {
             return;
         }
-        
+
         GameObject projectile = PoolManager.Instance.GetObject(projectilePoolName);
         if (projectile != null)
         {
