@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using Firebase.Auth;
 using TMPro;
+
 public class FirebaseAuthManager : MonoBehaviour
 {
     public GameObject loginPanel;
@@ -19,21 +20,16 @@ public class FirebaseAuthManager : MonoBehaviour
     {
         auth = FirebaseAuth.DefaultInstance;
 
-        loginPanel.SetActive(false);
+        // Configuraci贸n inicial de los botones
+        playButton.interactable = auth.CurrentUser != null;
 
-        if (auth.CurrentUser != null)
-        {
-            playButton.interactable = true;
-            feedbackText.text = $"Bienvenido, {auth.CurrentUser.Email}!";
-        }
-        else
-        {
-            playButton.interactable = false;
-            feedbackText.text = "Por favor, inicia sesi髇 para jugar.";
-        }
+        feedbackText.text = auth.CurrentUser != null
+            ? $"Bienvenido, {auth.CurrentUser.Email}!"
+            : "Por favor, inicia sesi贸n para jugar.";
 
-        loginButton.onClick.AddListener(ShowLoginPanel);
-        registerButton.onClick.AddListener(ShowLoginPanel);
+        // Asignar listeners
+        loginButton.onClick.AddListener(Login);
+        registerButton.onClick.AddListener(Register);
     }
 
     public void ShowLoginPanel()
@@ -51,19 +47,26 @@ public class FirebaseAuthManager : MonoBehaviour
         string email = emailInput.text;
         string password = passwordInput.text;
 
+        if (string.IsNullOrEmpty(email) || string.IsNullOrEmpty(password))
+        {
+            feedbackText.text = "Por favor, completa todos los campos.";
+            return;
+        }
+
         try
         {
+            // Intentar iniciar sesi贸n
             var authResult = await auth.SignInWithEmailAndPasswordAsync(email, password);
             FirebaseUser user = authResult.User;
 
             feedbackText.text = $"Bienvenido, {user.Email}!";
-            playButton.interactable = true;
-            HideLoginPanel();
+            playButton.interactable = true; // Habilitar el bot贸n Play
+            HideLoginPanel(); // Ocultar el panel de login
         }
         catch (System.Exception e)
         {
-            feedbackText.text = $"Error: {e.Message}";
-            playButton.interactable = false;
+            feedbackText.text = "No se pudo iniciar sesi贸n. Verifica tus credenciales.";
+            Debug.LogError(e.Message);
         }
     }
 
@@ -72,25 +75,31 @@ public class FirebaseAuthManager : MonoBehaviour
         string email = emailInput.text;
         string password = passwordInput.text;
 
+        if (string.IsNullOrEmpty(email) || string.IsNullOrEmpty(password))
+        {
+            feedbackText.text = "Por favor, completa todos los campos.";
+            return;
+        }
+
         try
         {
+            // Intentar registrar un nuevo usuario
             var authResult = await auth.CreateUserWithEmailAndPasswordAsync(email, password);
             FirebaseUser user = authResult.User;
 
-            feedbackText.text = $"Usuario registrado: {user.Email}";
-            playButton.interactable = true;
-            HideLoginPanel();
+            feedbackText.text = $"Usuario registrado: {user.Email}. Ahora puedes iniciar sesi贸n.";
         }
         catch (System.Exception e)
         {
-            feedbackText.text = $"Error: {e.Message}";
+            feedbackText.text = "No se pudo registrar el usuario. Intenta de nuevo.";
+            Debug.LogError(e.Message);
         }
     }
 
     public void Logout()
     {
         auth.SignOut();
-        playButton.interactable = false;
-        feedbackText.text = "Sesi髇 cerrada. Por favor, inicia sesi髇 para jugar.";
+        playButton.interactable = false; // Deshabilitar el bot贸n Play
+        feedbackText.text = "Sesi贸n cerrada. Por favor, inicia sesi贸n para jugar.";
     }
 }
