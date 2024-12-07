@@ -82,6 +82,7 @@ public class PlayerPowerUp : MonoBehaviour
         playerMovement.speed *= speedBoost;
         SetInvulnerability(true);
         Invoke(nameof(AllowRecharge), rechargeDelay);
+        playerMovement.canChangeDirection = false;
     }
 
     private void DeactivatePowerUp()
@@ -89,6 +90,7 @@ public class PlayerPowerUp : MonoBehaviour
         isPowerUpActive = false;
         playerMovement.speed /= speedBoost;
         SetInvulnerability(false);
+        playerMovement.canChangeDirection = true;
     }
     private void ConsumeEnergy()
     {
@@ -123,7 +125,7 @@ public class PlayerPowerUp : MonoBehaviour
 
         if (energyText != null)
         {
-            energyText.text = $"Energía: {energy:F0}%";
+            energyText.text = $"Energï¿½a: {energy:F0}%";
         }
     }
 

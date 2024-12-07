@@ -18,6 +18,7 @@ public class ConeAttack : Obstacles
     }
     private void SpawnCone()
     {
+        spawnAngle = Random.Range(0, 360);
         Vector2 spawnPosition = GetRandomPosition();
         Quaternion spawnRotation = Quaternion.Euler(0, 0, spawnAngle);
 
