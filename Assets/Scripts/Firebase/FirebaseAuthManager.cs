@@ -125,5 +125,6 @@ public class FirebaseAuthManager : MonoBehaviour
         auth.SignOut();
         playButton.interactable = false;
         feedbackText.text = "Sesión cerrada. Por favor, inicia sesión para jugar.";
+        ShowLoginPanel();
     }
 }
