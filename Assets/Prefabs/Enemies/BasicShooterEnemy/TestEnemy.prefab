@@ -73,7 +73,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: -2135585597343286014, guid: 5aa8b770bc43046bc8d993d0d5b7f4a5, type: 3}
+  m_Sprite: {fileID: -1536189677, guid: b45c0fe4c078aff4aa7d7a96378851bf, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -96,6 +96,7 @@ GameObject:
   - component: {fileID: 3887929213607852506}
   - component: {fileID: 5757595535007776903}
   - component: {fileID: 1673473738847564362}
+  - component: {fileID: 8774722185877029142}
   m_Layer: 0
   m_Name: TestEnemy
   m_TagString: Enemy
@@ -182,7 +183,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bb61ed6d60e9e2c418b3d5263178e5ae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  life: 1000
+  life: 25
   fireRate: 1
   projectilePoolName: EnemyBasicProjectilePool
   target: {fileID: 0}
@@ -200,10 +201,24 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   obstaclePoolName: ObstacleAttackPool
+  obstacleSpawnInterval: 4.5
+  colliderActivationDelay: 1
+  obstacleLifeTime: 3
+  blinkInterval: 0.2
+--- !u!114 &8774722185877029142
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5504201772983187473}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9c40a89c2b36a6c489c0d2d155bbb55e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  obstaclePoolName: ConeAttackPool
   obstacleSpawnInterval: 3
-  colliderActivationDelay: 0.5
-  obstacleLifeTime: 1
-  coneSpawnInterval: 2
-  spawnAngle: 78
-  conePoolName: ConeAttackPool
-  coneLifeTime: 1
+  colliderActivationDelay: 1
+  obstacleLifeTime: 2
+  blinkInterval: 0.2

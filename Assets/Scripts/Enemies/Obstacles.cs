@@ -4,6 +4,11 @@ using UnityEngine;
 
 public class Obstacles : MonoBehaviour
 {
+    [SerializeField] protected string obstaclePoolName = "ObstaclePool";
+    [SerializeField] protected float obstacleSpawnInterval = 3f;
+    [SerializeField] protected float colliderActivationDelay = 0.5f;
+    [SerializeField] protected float obstacleLifeTime = 1f;
+    [SerializeField] protected float blinkInterval = 0.2f;
     private GameObject player;
     private float spawnRadius;
 
@@ -50,5 +55,24 @@ public class Obstacles : MonoBehaviour
         {
             obj.SetActive(false);
         }
+    }
+    protected IEnumerator BlinkBeforeActivation(GameObject obstacle, Collider2D obstacleCollider, float delay)
+    {
+        SpriteRenderer spriteRenderer = obstacle.GetComponentInChildren<SpriteRenderer>();
+        if (spriteRenderer == null) yield break;
+
+        float elapsedTime = 0f;
+        bool isVisible = true;
+
+        while (elapsedTime < delay)
+        {
+            elapsedTime += blinkInterval;
+            isVisible = !isVisible;
+            spriteRenderer.enabled = isVisible;
+            yield return new WaitForSeconds(blinkInterval);
+        }
+
+        spriteRenderer.enabled = true;
+        obstacleCollider.enabled = true;
     }
 }

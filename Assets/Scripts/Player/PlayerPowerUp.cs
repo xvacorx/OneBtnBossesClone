@@ -125,7 +125,7 @@ public class PlayerPowerUp : MonoBehaviour
 
         if (energyText != null)
         {
-            energyText.text = $"Energ�a: {energy:F0}%";
+            energyText.text = $"Energía: {energy:F0}%";
         }
     }
 

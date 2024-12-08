@@ -6,18 +6,17 @@ using Firebase;
 
 public class FirebaseAuthManager : MonoBehaviour
 {
-    public GameObject loginPanel;
-    public Button playButton;
-    public Button loginButton;
-    public Button registerButton;
+    [SerializeField] private GameObject loginPanel;
+    [SerializeField] private Button playButton;
+    [SerializeField] private Button loginButton;
+    [SerializeField] private Button registerButton;
 
-    public TMP_InputField emailInput;
-    public TMP_InputField passwordInput;
-    public TMP_Text feedbackText;
+    [SerializeField] private TMP_InputField emailInput;
+    [SerializeField] private TMP_InputField passwordInput;
+    [SerializeField] private TMP_Text feedbackText;
 
     private FirebaseAuth auth;
-    private bool isRegistering = false; // Evitar múltiples registros
-
+    private bool isRegistering = false;
     private void Start()
     {
         auth = FirebaseAuth.DefaultInstance;
@@ -54,13 +53,12 @@ public class FirebaseAuthManager : MonoBehaviour
 
         try
         {
-            // Intentar iniciar sesión
             var authResult = await auth.SignInWithEmailAndPasswordAsync(email, password);
             FirebaseUser user = authResult.User;
 
             feedbackText.text = $"Bienvenido, {user.Email}!";
-            playButton.interactable = true; // Habilitar el botón Play
-            HideLoginPanel(); // Ocultar el panel de login
+            playButton.interactable = true;
+            HideLoginPanel();
         }
         catch (System.Exception e)
         {
@@ -71,7 +69,6 @@ public class FirebaseAuthManager : MonoBehaviour
 
     public async void Register()
     {
-        // Evitar múltiples ejecuciones
         if (isRegistering)
         {
             feedbackText.text = "Registro en proceso...";

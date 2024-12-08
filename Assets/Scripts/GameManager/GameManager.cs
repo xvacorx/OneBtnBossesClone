@@ -13,4 +13,8 @@ public class GameManager : MonoBehaviour
     {
         SceneManager.LoadScene("LevelSelect");
     }
+    public void LoadLevel(string levelName)
+    {
+        SceneManager.LoadScene(levelName);
+    }
 }

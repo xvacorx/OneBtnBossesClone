@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 7604798242138733691}
   - component: {fileID: 8491789350847693162}
   - component: {fileID: 2404324541801636770}
-  - component: {fileID: -5486524569694840536}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -62,15 +61,3 @@ MonoBehaviour:
   defeatPanelName: LosePanel
   currentTimeTextName: CurrentTime
   bestTimeTextName: BestTime
---- !u!114 &-5486524569694840536
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1256201062212164566}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 49885ff0cf648ca4ba98fc2dc975d3dc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 

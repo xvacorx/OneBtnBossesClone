@@ -2,9 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ShooterEnemy : Enemy
+public class EnemyShooting : Enemy
 {
-    public float fireRate = 1f;
+    [SerializeField] private float fireRate = 1f;
     private float nextFireTime = 0f;
     [SerializeField] private string projectilePoolName = "ProjectilePool";
 
