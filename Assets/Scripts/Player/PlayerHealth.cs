@@ -1,3 +1,4 @@
+using Codice.Client.Commands;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -8,10 +9,9 @@ public class PlayerHealth : MonoBehaviour
     public int maxHealth = 3;
     private int currentHealth;
     private PlayerPowerUp playerPowerUp;
-
-    void Start()
+    public void Start()
     {
-        currentHealth = maxHealth;
+        ResetHealth();
         playerPowerUp = GetComponent<PlayerPowerUp>();
     }
 
@@ -43,6 +43,10 @@ public class PlayerHealth : MonoBehaviour
     public int GetCurrentHealth()
     {
         return currentHealth;
+    }
+    public void ResetHealth()
+    {
+        currentHealth = maxHealth;
     }
 
 }

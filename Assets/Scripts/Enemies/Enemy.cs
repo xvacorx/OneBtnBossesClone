@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 
 public abstract class Enemy : MonoBehaviour
 {
-    [SerializeField] private int life;
+    public int life;
     public void TakeDamage(int damage)
     {
         life -= damage;

@@ -45,6 +45,16 @@ public class PlayerPowerUp : MonoBehaviour
         playerMovement = GetComponent<PlayerMovement>();
         playerCollider = GetComponent<Collider2D>();
 
+        if (playerMovement == null)
+        {
+            Debug.LogError("PlayerMovement no encontrado en el GameObject del jugador.");
+        }
+
+        if (playerCollider == null)
+        {
+            Debug.LogError("Collider2D no encontrado en el GameObject del jugador.");
+        }
+
         if (energyBar != null)
         {
             energyBar.maxValue = 100f;
@@ -75,23 +85,29 @@ public class PlayerPowerUp : MonoBehaviour
             ActivatePowerUp();
         }
     }
-    private void ActivatePowerUp()
+
+    public void ActivatePowerUp()
     {
+        if (playerMovement == null || playerCollider == null) return;
+
         isPowerUpActive = true;
         canRecharge = false;
-        playerMovement.speed *= speedBoost;
-        SetInvulnerability(true);
+        playerMovement.speed *= speedBoost; 
+        SetInvulnerability(true); 
         Invoke(nameof(AllowRecharge), rechargeDelay);
-        playerMovement.canChangeDirection = false;
+        playerMovement.canChangeDirection = false; 
     }
 
     private void DeactivatePowerUp()
     {
+        if (playerMovement == null || playerCollider == null) return; 
+
         isPowerUpActive = false;
-        playerMovement.speed /= speedBoost;
+        playerMovement.speed /= speedBoost; 
         SetInvulnerability(false);
         playerMovement.canChangeDirection = true;
     }
+
     private void ConsumeEnergy()
     {
         energy -= energyDepletionRate * Time.deltaTime;
@@ -134,8 +150,15 @@ public class PlayerPowerUp : MonoBehaviour
         return isPowerUpActive;
     }
 
-    private void SetInvulnerability(bool state)
+    public void SetInvulnerability(bool state)
     {
-        playerCollider.enabled = !state;
+        if (playerCollider != null)
+        {
+            playerCollider.enabled = state;
+        }
+        else
+        {
+            Debug.LogError("Collider2D no asignado en el método SetInvulnerability.");
+        }
     }
 }
