@@ -40,4 +40,9 @@ public class PlayerHealth : MonoBehaviour
             collision.gameObject.SetActive(false);
         }
     }
+    public int GetCurrentHealth()
+    {
+        return currentHealth;
+    }
+
 }
