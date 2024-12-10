@@ -83,6 +83,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHealth: 3
+  lifeText: Lives
 --- !u!58 &2539337155467753597
 CircleCollider2D:
   m_ObjectHideFlags: 0

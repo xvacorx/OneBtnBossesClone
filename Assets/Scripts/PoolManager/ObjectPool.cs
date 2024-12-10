@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.SceneManagement;
 public class ObjectPool : MonoBehaviour
 {
     public string poolName;
@@ -12,14 +12,36 @@ public class ObjectPool : MonoBehaviour
 
     private void Awake()
     {
-        poolName = this.gameObject.name;
+        poolName = gameObject.name;
+        InitializePool();
+        DeactivateAllChildren();
+    }
+    private void OnEnable()
+    {
+        SceneManager.sceneLoaded += OnSceneLoaded;
+    }
 
+    private void OnDisable()
+    {
+        SceneManager.sceneLoaded -= OnSceneLoaded;
+    }
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        DeactivateAllChildren();
+    }
+    private void InitializePool()
+    {
         for (int i = 0; i < initialSize; i++)
         {
-            GameObject obj = Instantiate(prefab, transform);
-            obj.SetActive(false);
-            availableObjects.Enqueue(obj);
+            CreateAndDeactivateObject();
         }
+    }
+
+    private void CreateAndDeactivateObject()
+    {
+        GameObject obj = Instantiate(prefab, transform);
+        obj.SetActive(false);
+        availableObjects.Enqueue(obj);
     }
 
     public GameObject GetObject()
@@ -30,16 +52,14 @@ public class ObjectPool : MonoBehaviour
 
             if (obj.activeInHierarchy)
             {
-                GameObject newObj = Instantiate(prefab, transform);
-                return newObj;
+                obj = Instantiate(prefab, transform);
             }
 
             return obj;
         }
         else
         {
-            GameObject newObj = Instantiate(prefab, transform);
-            return newObj;
+            return Instantiate(prefab, transform);
         }
     }
 
@@ -47,5 +67,12 @@ public class ObjectPool : MonoBehaviour
     {
         obj.SetActive(false);
         availableObjects.Enqueue(obj);
+    }
+    public void DeactivateAllChildren()
+    {
+        foreach (Transform child in transform)
+        {
+            ReturnObject(child.gameObject);
+        }
     }
 }
